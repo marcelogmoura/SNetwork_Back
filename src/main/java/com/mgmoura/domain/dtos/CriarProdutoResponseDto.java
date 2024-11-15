@@ -15,6 +15,7 @@ public class CriarProdutoResponseDto {
 	private String nome;
 	private Integer quantidade;
 	private Integer ean;
+	private Double preco;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime dataCadastro;

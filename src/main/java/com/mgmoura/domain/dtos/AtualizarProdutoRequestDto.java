@@ -9,8 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CriarProdutoRequestDto {
-		
+public class AtualizarProdutoRequestDto {
+	
 	@NotEmpty(message = "Informe o nome.")
 	@Size(min = 3, max = 50, message = "O nome precisa ter de 3 a 50 caracteres")
 	@Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "O nome deve conter apenas letras, números e espaços.")
@@ -25,8 +25,5 @@ public class CriarProdutoRequestDto {
 	@Max(value = 99999, message = "O EAN deve ter no máximo 5 dígitos.")
 	private Integer ean;
 	
-	@NotNull(message = "Informe a preço.")
-	@Min(value = 1, message = "O preço deve ser maior ou igual a 1.") 
 	private Double preco;
-
 }

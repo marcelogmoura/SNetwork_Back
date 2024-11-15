@@ -18,5 +18,6 @@ public class Produto {
 	private Integer quantidade;
 	private Integer ean;
 	private LocalDate dataCadastro;	
+	private Double preco;
 
 }

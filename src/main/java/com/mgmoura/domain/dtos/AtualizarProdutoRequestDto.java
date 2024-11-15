@@ -25,5 +25,7 @@ public class AtualizarProdutoRequestDto {
 	@Max(value = 99999, message = "O EAN deve ter no máximo 5 dígitos.")
 	private Integer ean;
 	
+	@NotNull(message = "Informe a preço.")
+	@Min(value = 1, message = "O preço deve ser maior ou igual a 1.") 
 	private Double preco;
 }

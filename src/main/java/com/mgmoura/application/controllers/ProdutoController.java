@@ -1,11 +1,13 @@
 package com.mgmoura.application.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,36 +25,35 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/produtos")
 public class ProdutoController {
-	
+
 	@Autowired
 	private ProdutoDomainService produtoDomainService;
-	
+
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
+
 	@PostMapping("criar")
-	public ResponseEntity<CriarProdutoResponseDto> criar(@RequestBody @Valid CriarProdutoRequestDto dto) {
-		
+	public ResponseEntity<?> criar(@RequestBody @Valid CriarProdutoRequestDto dto) {
 		CriarProdutoResponseDto response = produtoDomainService.criar(dto);
-		
 		return ResponseEntity.status(201).body(response);
-	}
-	
-	@PutMapping
-	public void put() {
-		
+
 	}
 
-	@DeleteMapping
-	public void delete() {
-		
+	@PutMapping("/{id}")
+	public ResponseEntity<CriarProdutoResponseDto> editar(@PathVariable UUID id,
+			@RequestBody @Valid CriarProdutoRequestDto dto) {
+		CriarProdutoResponseDto response = produtoDomainService.editar(id, dto);
+		return ResponseEntity.status(200).body(response);
 	}
-	
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable UUID id) {
+		produtoDomainService.deletar(id);		
+		return ResponseEntity.status(200).body("Produto excluido");
+	}
+
 	@GetMapping
 	public List<Produto> get() {
 		return produtoRepository.findAll();
 	}
 }
-
-
-

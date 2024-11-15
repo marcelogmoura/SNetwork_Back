@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.mgmoura.domain.dtos.CriarProdutoRequestDto;
 import com.mgmoura.domain.dtos.CriarProdutoResponseDto;
 import com.mgmoura.domain.entities.Produto;
+import com.mgmoura.domain.exceptions.EanJaCadastradoException;
 import com.mgmoura.domain.interfaces.ProdutoDomainService;
 import com.mgmoura.infrastructure.repositories.ProdutoRepository;
 
@@ -26,7 +27,7 @@ public class ProdutoDomainServiceImpl implements ProdutoDomainService{
 	public CriarProdutoResponseDto criar(CriarProdutoRequestDto dto) {
 
 		if(produtoRepository.findByEAN(dto.getEan()) != null)
-			throw new IllegalArgumentException("");
+			throw new EanJaCadastradoException();
 		
 		Produto produto = new Produto();
 		produto.setNome(dto.getNome());

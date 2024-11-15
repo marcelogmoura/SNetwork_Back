@@ -1,18 +1,47 @@
 package com.mgmoura.domain.services;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mgmoura.domain.dtos.CriarProdutoRequestDto;
 import com.mgmoura.domain.dtos.CriarProdutoResponseDto;
+import com.mgmoura.domain.entities.Produto;
 import com.mgmoura.domain.interfaces.ProdutoDomainService;
+import com.mgmoura.infrastructure.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoDomainServiceImpl implements ProdutoDomainService{
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	public CriarProdutoResponseDto criar(CriarProdutoRequestDto dto) {
 
-		return null;
+		if(produtoRepository.findByEAN(dto.getEan()) != null)
+			throw new IllegalArgumentException("");
+		
+		Produto produto = new Produto();
+		produto.setNome(dto.getNome());
+		produto.setQuantidade(dto.getQuantidade());
+		produto.setEan(dto.getEan());
+		
+		produtoRepository.save(produto);
+		
+		CriarProdutoResponseDto response = modelMapper.map(produto, CriarProdutoResponseDto.class);
+		response.setDataCadastro(LocalDateTime.now());
+		
+		return response;
 	}
+
+
+
 
 }

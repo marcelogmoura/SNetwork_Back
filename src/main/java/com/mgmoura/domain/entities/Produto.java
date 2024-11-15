@@ -16,7 +16,7 @@ public class Produto {
 	private UUID id;
 	private String nome;
 	private Integer quantidade;
-	private LocalDate dataCadastro;
-	
+	private Integer ean;
+	private LocalDate dataCadastro;	
 
 }

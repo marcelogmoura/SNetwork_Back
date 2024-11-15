@@ -1,6 +1,7 @@
 package com.mgmoura.domain.dtos;
 
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -16,9 +17,11 @@ public class CriarProdutoRequestDto {
 	private String nome;
 	
 	@NotNull(message = "Informe a quantidade.")
+	@Min(value = 1, message = "A quantidade deve ser maior ou igual a 1.")
 	private Integer quantidade;	
 	
 	@NotNull(message = "Informe o EAN.")
+	@Min(value = 1, message = "O EAN deve ser maior ou igual a 1.")
 	@Max(value = 99999, message = "O EAN deve ter no máximo 5 dígitos.")
 	private Integer ean;
 

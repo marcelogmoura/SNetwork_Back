@@ -2,6 +2,7 @@ package com.mgmoura.domain.services;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class ProdutoDomainServiceImpl implements ProdutoDomainService{
 			throw new EanJaCadastradoException();
 		
 		Produto produto = new Produto();
+		produto.setId(UUID.randomUUID());
 		produto.setNome(dto.getNome());
 		produto.setQuantidade(dto.getQuantidade());
 		produto.setEan(dto.getEan());

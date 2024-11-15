@@ -1,6 +1,7 @@
 package com.mgmoura.domain.services;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
@@ -38,6 +39,7 @@ public class ProdutoDomainServiceImpl implements ProdutoDomainService{
 		produto.setQuantidade(dto.getQuantidade());
 		produto.setEan(dto.getEan());
 		produto.setPreco(dto.getPreco());
+		produto.setDataCadastro(LocalDateTime.now());
 		
 		produtoRepository.save(produto);
 		

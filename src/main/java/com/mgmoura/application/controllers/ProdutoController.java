@@ -1,6 +1,7 @@
 package com.mgmoura.application.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
-	@PostMapping("criar")
+	@PostMapping()
 	public ResponseEntity<?> criar(@RequestBody @Valid CriarProdutoRequestDto dto) {
 		CriarProdutoResponseDto response = produtoDomainService.criar(dto);
 		return ResponseEntity.status(201).body(response);
@@ -56,4 +57,16 @@ public class ProdutoController {
 	public List<Produto> get() {
 		return produtoRepository.findAll();
 	}
+	
+	@GetMapping("{id}")
+	public Produto getById(@PathVariable("id") UUID id) {		
+		Optional<Produto> produto = produtoRepository.findById(id);		
+		if(produto.isPresent()) {
+			return produto.get();
+		}else {
+			return null;
+		}
+		
+	}
+	
 }

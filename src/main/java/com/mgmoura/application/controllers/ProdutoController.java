@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mgmoura.domain.dtos.CriarProdutoRequestDto;
 import com.mgmoura.domain.dtos.CriarProdutoResponseDto;
 import com.mgmoura.domain.entities.Produto;
+import com.mgmoura.domain.exceptions.ProdutoNaoEncontradoException;
 import com.mgmoura.domain.interfaces.ProdutoDomainService;
 import com.mgmoura.infrastructure.repositories.ProdutoRepository;
 
@@ -49,8 +50,12 @@ public class ProdutoController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable UUID id) {
-		produtoDomainService.deletar(id);		
-		return ResponseEntity.status(200).body("Produto excluido");
+	    try {
+	        produtoDomainService.deletar(id);
+	        return ResponseEntity.status(200).body("Produto excluído");
+	    } catch (ProdutoNaoEncontradoException e) {
+	        return ResponseEntity.status(404).body("Produto nao encontrado");
+	    }
 	}
 
 	@GetMapping

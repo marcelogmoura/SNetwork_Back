@@ -76,14 +76,11 @@ public class ProdutoDomainServiceImpl implements ProdutoDomainService {
 	@Override
 	public void deletar(UUID id) {
 
-		try {
-			Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException(id));
+		Produto produto = produtoRepository.findById(id)
+	        .orElseThrow(() -> new ProdutoNaoEncontradoException(id));
 
-			produtoRepository.delete(produto);
-
-		} catch (Exception e) {
-			throw new RuntimeException("Erro ao tentar deletar o produto: " + e.getMessage());
-		}
+	    produtoRepository.delete(produto);
 	}
+
 
 }

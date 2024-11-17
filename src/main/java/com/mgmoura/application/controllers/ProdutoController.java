@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +44,13 @@ public class ProdutoController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CriarProdutoResponseDto> editar(@PathVariable UUID id,
-			@RequestBody @Valid CriarProdutoRequestDto dto) {
-		CriarProdutoResponseDto response = produtoDomainService.editar(id, dto);
-		return ResponseEntity.status(200).body(response);
+	        @RequestBody @Valid CriarProdutoRequestDto dto) {
+	    try {
+	        CriarProdutoResponseDto response = produtoDomainService.editar(id, dto);
+	        return ResponseEntity.status(200).body(response); 
+	    } catch (ProdutoNaoEncontradoException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); 
+	    }
 	}
 
 	@DeleteMapping("/{id}")

@@ -51,7 +51,8 @@ public class ProdutoDomainServiceImpl implements ProdutoDomainService {
 	@Override
 	public CriarProdutoResponseDto editar(UUID id, CriarProdutoRequestDto dto) {
 
-		Produto produto = produtoRepository.findById(id).orElseThrow();
+		Produto produto = produtoRepository.findById(id)
+	            .orElseThrow(() -> new ProdutoNaoEncontradoException(id)); 
 
 		Produto produtoEANExistente = produtoRepository.findByEAN(dto.getEan());
 
@@ -78,7 +79,7 @@ public class ProdutoDomainServiceImpl implements ProdutoDomainService {
 
 		Produto produto = produtoRepository.findById(id)
 	        .orElseThrow(() -> new ProdutoNaoEncontradoException(id));
-
+		
 	    produtoRepository.delete(produto);
 	}
 

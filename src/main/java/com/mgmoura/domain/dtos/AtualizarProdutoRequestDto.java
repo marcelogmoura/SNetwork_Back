@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class AtualizarProdutoRequestDto {
 	
+		
 	@NotEmpty(message = "Informe o nome.")
 	@Size(min = 3, max = 50, message = "O nome precisa ter de 3 a 50 caracteres")
 	@Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "O nome deve conter apenas letras, números e espaços.")

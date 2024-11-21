@@ -2,6 +2,9 @@
 
 Este projeto consiste no desenvolvimento de uma API RESTful para **gerenciamento de produtos**, oferecendo funcionalidades completas de **CRUD** (_Create, Read, Update, Delete_) com armazenamento de dados em um banco de dados **MongoDB**.
 
+O repositório frontEnd (Angular) se encontra no link abaixo:
+https://github.com/marcelogmoura/SNetwork_Front
+
 ## ✨ Tecnologias Utilizadas
 
 - **Java 17**

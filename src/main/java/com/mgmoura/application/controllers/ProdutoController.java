@@ -1,7 +1,6 @@
 package com.mgmoura.application.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +82,15 @@ public class ProdutoController {
 	    return ResponseEntity.ok(produto);
 	}
 
-	
+
+	@GetMapping("/ean/{ean}")
+	public ResponseEntity<Produto> getByEan(@PathVariable Integer ean) {
+	    Produto produto = produtoRepository.findByEAN(ean); 
+	    if (produto == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    return ResponseEntity.ok(produto);
+	}
+
 	
 }

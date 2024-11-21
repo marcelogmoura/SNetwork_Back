@@ -63,20 +63,26 @@ public class ProdutoController {
 	    }
 	}
 
+
 	@GetMapping
-	public List<Produto> get() {
-		return produtoRepository.findAll();
+	public ResponseEntity<List<Produto>> getAll() {
+	    List<Produto> produtos = produtoRepository.findAll();
+	    if (produtos.isEmpty()) {
+	        return ResponseEntity.noContent().build();
+	    }
+	    return ResponseEntity.ok(produtos);
 	}
+
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Produto> getById(@PathVariable UUID id) {
+	    Produto produto = produtoRepository.findById(id).orElse(null);
+	    if (produto == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    return ResponseEntity.ok(produto);
+	}
+
 	
-	@GetMapping("{id}")
-	public Produto getById(@PathVariable("id") UUID id) {		
-		Optional<Produto> produto = produtoRepository.findById(id);		
-		if(produto.isPresent()) {
-			return produto.get();
-		}else {
-			return null;
-		}
-		
-	}
 	
 }
